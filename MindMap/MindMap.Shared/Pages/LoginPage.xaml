@@ -1,0 +1,80 @@
+﻿<Page
+    x:Class="MindMap.Pages.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MindMap"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid x:Name="LayoutRoot">
+
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title Panel -->
+        <StackPanel Grid.Row="0" Margin="19,0,0,0">
+            <TextBlock Text="{StaticResource AppName}" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
+            <TextBlock Text="page title" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}"/>
+        </StackPanel>
+
+        <!--TODO: Content should be placed within the following grid-->
+        <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Username"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="2"
+                       Style="{StaticResource LabelTextBlockStyle}"/>
+            <TextBox Grid.Row="1"
+                     Grid.ColumnSpan="2"
+                     Text="{Binding User.Username, Mode=TwoWay}"/>
+            <TextBlock Text="Username" 
+                       Grid.Row="2"
+                       Grid.ColumnSpan="2"
+                       Style="{StaticResource LabelTextBlockStyle}"/>
+            <PasswordBox Grid.Row="3"
+                         Grid.ColumnSpan="2"
+                         Password ="{Binding User.Password, Mode=TwoWay}"/>
+            <Button Content="_login" 
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch"
+                    Command="{Binding Login}"/>
+            <Button Content="_register" 
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch"
+                    Command="{Binding Register}"/>
+            <TextBlock Name="tb_notifications"
+                       Foreground="Yellow" 
+                       Grid.Row="5"
+                       Grid.ColumnSpan="2"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="{Binding NotifyMessage, Mode=TwoWay}"
+                       Style="{StaticResource LabelTextBlockStyle}"/>
+        </Grid>
+    </Grid>
+</Page>
