@@ -25,6 +25,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pages\MindMapPage.xaml.cs">
       <DependentUpon>MindMapPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UserControls\HeaderView.xaml.cs">
+      <DependentUpon>HeaderView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserViewModel.cs" />
   </ItemGroup>
@@ -34,6 +37,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Pages\MindMapPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UserControls\HeaderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

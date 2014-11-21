@@ -31,13 +31,23 @@ namespace MindMap.Pages
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
-        public LoginPage()
+        public LoginPage(LoginPageViewModel viewModel)
         {
             this.InitializeComponent();
 
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
+
+            //we want to pass the datacontext from outside and we want to cast the view just once
+            // rather that every time we use it
+            this.ViewModel = viewModel;
+        }
+
+        public LoginPage()
+            :this(new LoginPageViewModel())
+        {
+
         }
 
         /// <summary>
@@ -101,10 +111,6 @@ namespace MindMap.Pages
         /// handlers that cannot cancel the navigation request.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //we want to pass the datacontext from outside and we want to cast the view just once
-            // rather that every time we use it
-            this.ViewModel = e.Parameter as LoginPageViewModel;
-
             HandleUserLogin();
             this.navigationHelper.OnNavigatedTo(e);
         }

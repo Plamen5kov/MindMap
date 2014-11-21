@@ -6,7 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    
+    xmlns:views ="using:MindMap.UserControls">
 
     <Grid x:Name="LayoutRoot">
 
@@ -22,14 +24,13 @@
         </Grid.RowDefinitions>
 
         <!-- Title Panel -->
-        <StackPanel Grid.Row="0" Margin="19,0,0,0">
-            <TextBlock Text="MY APPLICATION" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
-            <TextBlock Text="page title" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" />
-        </StackPanel>
+        <views:HeaderView Grid.Row="0" Margin="19,0,0,0"
+                          TitleText="mind map"
+                          SignOutEvent="OnSignOutCompleated"/>
 
         <!--TODO: Content should be placed within the following grid-->
         <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
-
+            
         </Grid>
     </Grid>
 </Page>

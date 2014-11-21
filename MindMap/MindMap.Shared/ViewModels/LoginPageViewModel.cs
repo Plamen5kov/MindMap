@@ -94,6 +94,7 @@ namespace MindMap.ViewModels
         {
             try
             {
+                // TODO: if the user isn't logged in after 5 seconds notify for possible internet problems
                 await ParseUser.LogInAsync(this.User.Username, this.User.Password);
 
                 if (this.LoginSuccessfullEvent != null)

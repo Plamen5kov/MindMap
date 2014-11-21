@@ -1,4 +1,6 @@
 ﻿using MindMap.Common;
+using MindMap.ViewModels;
+using Parse;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -79,6 +81,11 @@ namespace MindMap.Pages
         /// serializable state.</param>
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
+        }
+
+        public void OnSignOutCompleated(object sender, EventArgs args)
+        {
+            this.Frame.Navigate(typeof(LoginPage));
         }
 
         #region NavigationHelper registration

@@ -100,8 +100,16 @@ namespace MindMap
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                if (!rootFrame.Navigate(typeof(LoginPage), new LoginPageViewModel()))
-                //if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
+                Type startPageType;
+                if(ParseUser.CurrentUser != null)
+                {
+                    startPageType = typeof(MindMapPage);
+                }
+                else
+                {
+                    startPageType = typeof(LoginPage);
+                }
+                if (!rootFrame.Navigate(startPageType, e.Arguments))
                 {
                     throw new Exception("Failed to create initial page");
                 }
