@@ -31,6 +31,7 @@ namespace MindMap
 #if WINDOWS_PHONE_APP
         private TransitionCollection transitions;
 #endif
+        private const object parentOfRoot = null;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -101,15 +102,18 @@ namespace MindMap
                 // configuring the new page by passing required information as a navigation
                 // parameter
                 Type startPageType;
+                object arguments;
                 if(ParseUser.CurrentUser != null)
                 {
                     startPageType = typeof(MindMapPage);
+                    arguments = parentOfRoot;
                 }
                 else
                 {
                     startPageType = typeof(LoginPage);
+                    arguments = new LoginPageViewModel();
                 }
-                if (!rootFrame.Navigate(startPageType, e.Arguments))
+                if (!rootFrame.Navigate(startPageType, arguments))
                 {
                     throw new Exception("Failed to create initial page");
                 }

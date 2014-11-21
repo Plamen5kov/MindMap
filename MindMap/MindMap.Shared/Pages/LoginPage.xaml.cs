@@ -28,6 +28,8 @@ namespace MindMap.Pages
     /// </summary>
     public sealed partial class LoginPage : Page
     {
+        private const object parentOfRoot = null;
+
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
@@ -119,7 +121,8 @@ namespace MindMap.Pages
         {
             this.ViewModel.LoginSuccessfullEvent += (snd, args) =>
             {
-                this.Frame.Navigate(typeof(MindMapPage));
+                var parentElement = parentOfRoot; // each time someone navigates to the MindMapPage he needs to send the parent element so we know what child elements to make request for
+                this.Frame.Navigate(typeof(MindMapPage), parentElement);
             };
         }
 

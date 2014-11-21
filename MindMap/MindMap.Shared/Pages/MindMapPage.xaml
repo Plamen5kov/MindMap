@@ -8,7 +8,12 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     
-    xmlns:views ="using:MindMap.UserControls">
+    xmlns:views ="using:MindMap.UserControls"
+    xmlns:dummyConverter ="using:MindMap.Helpers"
+    Tapped="OnPageTap">
+    <Page.Resources>
+        <dummyConverter:DummyConverter x:Key="dummyConverter" />
+    </Page.Resources>
 
     <Grid x:Name="LayoutRoot">
 
@@ -28,9 +33,32 @@
                           TitleText="mind map"
                           SignOutEvent="OnSignOutCompleated"/>
 
-        <!--TODO: Content should be placed within the following grid-->
+        <!--Content should be placed within the following grid-->
         <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
-            
+            <ListView Margin="10" 
+                      Name="lvDataBinding" 
+                      ItemsSource="{Binding NodesList}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Canvas Name="canvasContext" Height="110">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Title, Mode=TwoWay}" 
+                                            FontSize="27"/>
+                                <TextBlock Text="{Binding Content, Mode=TwoWay}" 
+                                            FontSize="27"/>
+                            </StackPanel>
+                            <Rectangle VerticalAlignment="Stretch"
+                                        HorizontalAlignment="Stretch" 
+                                        Height="100"
+                                        Width="150"
+                                        Fill="Aquamarine"
+                                        Opacity="0.5"/>
+                        </Canvas>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
         </Grid>
     </Grid>
 </Page>
+ 

@@ -1,14 +1,17 @@
 ﻿using MindMap.Common;
+using MindMap.Helpers;
 using MindMap.ViewModels;
 using Parse;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
+using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -17,6 +20,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Shapes;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -29,6 +33,7 @@ namespace MindMap.Pages
     {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
+        private ObservableCollection<NodeViewModel> nodeViewModels;
 
         public MindMapPage()
         {
@@ -37,6 +42,32 @@ namespace MindMap.Pages
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
+
+            this.DataContext = this;
+        }
+
+        public ICollection<NodeViewModel> NodesList
+        {
+            get
+            {
+                if (this.nodeViewModels == null)
+                {
+                    this.nodeViewModels = new ObservableCollection<NodeViewModel>();
+                }
+                return this.nodeViewModels;
+            }
+            set
+            {
+                if (this.nodeViewModels == null)
+                {
+                    this.nodeViewModels = new ObservableCollection<NodeViewModel>();
+                }
+                this.nodeViewModels.Clear();
+                foreach (var item in value)
+                {
+                    this.nodeViewModels.Add(item);
+                }
+            }
         }
 
         /// <summary>
@@ -105,8 +136,26 @@ namespace MindMap.Pages
         /// handlers that cannot cancel the navigation request.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            var passedParameter = e.Parameter;
+            if (passedParameter == null)
+            {
+                // and if request for node with parent null returns nothing 
+                //do initialization for initial root element
+                //var contentGrid = this.ContentRoot;
+                //var node = NodeManager.CreateNode();
+                //contentGrid.Children.Add(node);
+
+                this.NodesList.Add(new NodeViewModel() { Title = "random title", Content = "random content" });
+
+            }
+            else
+            {
+                //make request for  node with passed parent
+            }
             this.navigationHelper.OnNavigatedTo(e);
         }
+
+
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
@@ -114,5 +163,10 @@ namespace MindMap.Pages
         }
 
         #endregion
+
+        private void OnPageTap(object sender, TappedRoutedEventArgs e)
+        {
+            this.NodesList.Add(new NodeViewModel() { Title = "random title", Content = "random content" });
+        }
     }
 }

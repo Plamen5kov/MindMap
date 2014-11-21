@@ -34,7 +34,6 @@ namespace MindMap.UserControls
             set { SetValue(TitleTextProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for TitleText.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TitleTextProperty =
             DependencyProperty.Register("TitleText", typeof(string), typeof(HeaderView), new PropertyMetadata(null));
 
@@ -46,7 +45,5 @@ namespace MindMap.UserControls
                 this.SignOutEvent(this, null);
             }
         }
-
-        
     }
 }
