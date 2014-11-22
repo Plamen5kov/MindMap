@@ -102,18 +102,15 @@ namespace MindMap
                 // configuring the new page by passing required information as a navigation
                 // parameter
                 Type startPageType;
-                object arguments;
                 if(ParseUser.CurrentUser != null)
                 {
                     startPageType = typeof(MindMapPage);
-                    arguments = "fromApp";
                 }
                 else
                 {
                     startPageType = typeof(LoginPage);
-                    arguments = "fromApp";//new LoginPageViewModel();
                 }
-                if (!rootFrame.Navigate(startPageType, arguments))
+                if (!rootFrame.Navigate(startPageType, parentOfRoot))
                 {
                     throw new Exception("Failed to create initial page");
                 }

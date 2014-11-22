@@ -125,19 +125,16 @@ namespace MindMap.Pages
             var passedParameter = e.Parameter;
             if (passedParameter == null)
             {
-                // and if request for node with parent null returns nothing 
-                //do initialization for initial root element
-                //var contentGrid = this.ContentRoot;
-                //var node = NodeManager.CreateNode();
-                //contentGrid.Children.Add(node);
-
                 this.ViewModel.NodesList.Add(new NodeViewModel() { Title = "random title", Content = "random content" });
 
+                // TODO: after there is a root disable the creation of new ones .. disable event
             }
             else
             {
-                //make request for  node with passed parent
+                // TODO: make request for  node with passed parent
+                // and visualize title on display NodesViewModel contains only title
             }
+
             this.navigationHelper.OnNavigatedTo(e);
         }
 
