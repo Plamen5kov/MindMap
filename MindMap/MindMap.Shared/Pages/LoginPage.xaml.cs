@@ -28,12 +28,11 @@ namespace MindMap.Pages
     /// </summary>
     public sealed partial class LoginPage : Page
     {
-        private const object parentOfRoot = null;
 
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
-        public LoginPage(LoginPageViewModel viewModel)
+        public LoginPage()
         {
             this.InitializeComponent();
 
@@ -43,13 +42,17 @@ namespace MindMap.Pages
 
             //we want to pass the datacontext from outside and we want to cast the view just once
             // rather that every time we use it
-            this.ViewModel = viewModel;
+            this.ViewModel = new LoginPageViewModel();
+            AttachSignOutEventListener();
         }
 
-        public LoginPage()
-            :this(new LoginPageViewModel())
+        private async void AttachSignOutEventListener()
         {
-
+            string parentElement = "fromApp";
+            this.ViewModel.LoginSuccessfullEvent += (snd, args) =>
+            {// each time someone navigates to the MindMapPage he needs to send the parent element so we know what child elements to make request for
+                this.Frame.Navigate(typeof(MindMapPage), parentElement);
+            };
         }
 
         /// <summary>
@@ -113,17 +116,12 @@ namespace MindMap.Pages
         /// handlers that cannot cancel the navigation request.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            HandleUserLogin();
             this.navigationHelper.OnNavigatedTo(e);
         }
 
-        private async void HandleUserLogin()
+        private void HandleLoadingPage()
         {
-            this.ViewModel.LoginSuccessfullEvent += (snd, args) =>
-            {
-                var parentElement = parentOfRoot; // each time someone navigates to the MindMapPage he needs to send the parent element so we know what child elements to make request for
-                this.Frame.Navigate(typeof(MindMapPage), parentElement);
-            };
+            this.Frame.Navigate(typeof(LoginPage));
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)

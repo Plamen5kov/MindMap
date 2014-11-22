@@ -9,13 +9,13 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     
     xmlns:views ="using:MindMap.UserControls"
-    xmlns:dummyConverter ="using:MindMap.Helpers"
-    Tapped="OnPageTap">
+    xmlns:dummyConverter ="using:MindMap.Helpers">
     <Page.Resources>
         <dummyConverter:DummyConverter x:Key="dummyConverter" />
     </Page.Resources>
 
-    <Grid x:Name="LayoutRoot">
+    <Grid x:Name="LayoutRoot" 
+    Tapped="OnPageTap">
 
         <Grid.ChildrenTransitions>
             <TransitionCollection>

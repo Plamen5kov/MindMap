@@ -33,7 +33,7 @@ namespace MindMap.Pages
     {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
-        private ObservableCollection<NodeViewModel> nodeViewModels;
+        private MindMapViewModel viewModel;
 
         public MindMapPage()
         {
@@ -42,31 +42,19 @@ namespace MindMap.Pages
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
-
-            this.DataContext = this;
+            this.ViewModel =  new MindMapViewModel();
+            this.DataContext = this.ViewModel;
         }
 
-        public ICollection<NodeViewModel> NodesList
+        public MindMapViewModel ViewModel
         {
             get
             {
-                if (this.nodeViewModels == null)
-                {
-                    this.nodeViewModels = new ObservableCollection<NodeViewModel>();
-                }
-                return this.nodeViewModels;
+                return this.viewModel as MindMapViewModel;
             }
             set
             {
-                if (this.nodeViewModels == null)
-                {
-                    this.nodeViewModels = new ObservableCollection<NodeViewModel>();
-                }
-                this.nodeViewModels.Clear();
-                foreach (var item in value)
-                {
-                    this.nodeViewModels.Add(item);
-                }
+                this.viewModel = value;
             }
         }
 
@@ -145,7 +133,7 @@ namespace MindMap.Pages
                 //var node = NodeManager.CreateNode();
                 //contentGrid.Children.Add(node);
 
-                this.NodesList.Add(new NodeViewModel() { Title = "random title", Content = "random content" });
+                this.ViewModel.NodesList.Add(new NodeViewModel() { Title = "random title", Content = "random content" });
 
             }
             else
@@ -166,7 +154,15 @@ namespace MindMap.Pages
 
         private void OnPageTap(object sender, TappedRoutedEventArgs e)
         {
-            this.NodesList.Add(new NodeViewModel() { Title = "random title", Content = "random content" });
+            var currentSelectedObject = e.OriginalSource;
+            if ((currentSelectedObject as Grid) != null)
+            {
+                this.ViewModel.NodesList.Add(new NodeViewModel() { Title = "random title", Content = "random content" });
+            }
+            if ((currentSelectedObject as Rectangle) != null)
+            {
+                this.Frame.Navigate(typeof(MindMapPage));
+            }
         }
     }
 }

@@ -106,12 +106,12 @@ namespace MindMap
                 if(ParseUser.CurrentUser != null)
                 {
                     startPageType = typeof(MindMapPage);
-                    arguments = parentOfRoot;
+                    arguments = "fromApp";
                 }
                 else
                 {
                     startPageType = typeof(LoginPage);
-                    arguments = new LoginPageViewModel();
+                    arguments = "fromApp";//new LoginPageViewModel();
                 }
                 if (!rootFrame.Navigate(startPageType, arguments))
                 {
