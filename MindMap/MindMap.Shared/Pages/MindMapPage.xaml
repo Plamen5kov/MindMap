@@ -12,6 +12,7 @@
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:views ="using:MindMap.UserControls"
     xmlns:dummyConverter ="using:MindMap.Helpers">
+    
     <Page.Resources>
         <dummyConverter:DummyConverter x:Key="dummyConverter" />
     </Page.Resources>
@@ -55,7 +56,7 @@
                                         Width="150"
                                         Fill="Aquamarine"
                                         Opacity="0.5"
-                                       Holding="Rectangle_Holding">
+                                        Holding="Rectangle_Holding">
                             </Rectangle>
                         </Canvas>
                     </DataTemplate>

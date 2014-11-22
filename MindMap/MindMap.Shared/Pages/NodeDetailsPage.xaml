@@ -34,12 +34,11 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <TextBox Name="tb_title" 
-                       Text="{Binding Title, Mode=TwoWay}" 
-                       Grid.Row="0"/>
-            <TextBox Name="tb_content" 
-                       Text="{Binding Content, Mode=TwoWay}" 
-                       Grid.Row="1"/>
+            <CaptureElement x:Name="PhotoPreview"
+                            Height="300"
+                            Width="300"
+                            Grid.Row="0" 
+                            Tapped="PhotoPreview_Tapped"/>
             <Button Content="Save"
                     Command="{Binding Save}" 
                     Grid.Row="2"/>

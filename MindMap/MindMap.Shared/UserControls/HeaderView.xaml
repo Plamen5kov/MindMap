@@ -18,7 +18,8 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0"
+        <TextBlock Name="tb_title"
+                    Grid.Row="0"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Text="{Binding TitleText}"

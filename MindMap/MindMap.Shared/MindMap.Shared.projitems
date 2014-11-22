@@ -21,6 +21,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Common\SuspensionManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\DummyConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\NodeManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\SQLite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\SQLiteAsync.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
