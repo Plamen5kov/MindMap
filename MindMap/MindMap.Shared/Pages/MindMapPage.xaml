@@ -8,6 +8,8 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     
+    xmlns:mvvm="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.SL5"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:views ="using:MindMap.UserControls"
     xmlns:dummyConverter ="using:MindMap.Helpers">
     <Page.Resources>
@@ -52,7 +54,9 @@
                                         Height="100"
                                         Width="150"
                                         Fill="Aquamarine"
-                                        Opacity="0.5"/>
+                                        Opacity="0.5"
+                                       Holding="Rectangle_Holding">
+                            </Rectangle>
                         </Canvas>
                     </DataTemplate>
                 </ListView.ItemTemplate>

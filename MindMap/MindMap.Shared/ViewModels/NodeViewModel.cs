@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using MindMap.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,5 +11,7 @@ namespace MindMap.ViewModels
         public string Title { get; set; }
 
         public string Content { get; set; }
+
+       
     }
 }

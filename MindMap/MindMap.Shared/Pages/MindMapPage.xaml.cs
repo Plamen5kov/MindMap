@@ -33,7 +33,6 @@ namespace MindMap.Pages
     {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
-        private MindMapViewModel viewModel;
 
         public MindMapPage()
         {
@@ -43,18 +42,17 @@ namespace MindMap.Pages
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
             this.ViewModel =  new MindMapViewModel();
-            this.DataContext = this.ViewModel;
         }
 
         public MindMapViewModel ViewModel
         {
             get
             {
-                return this.viewModel as MindMapViewModel;
+                return this.DataContext as MindMapViewModel;
             }
             set
             {
-                this.viewModel = value;
+                this.DataContext = value;
             }
         }
 
@@ -163,6 +161,12 @@ namespace MindMap.Pages
             {
                 this.Frame.Navigate(typeof(MindMapPage));
             }
+        }
+
+        private void Rectangle_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+            // change view to details with new instance
+            this.Frame.Navigate(typeof(NodeDetailsPage));
         }
     }
 }

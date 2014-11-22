@@ -46,6 +46,18 @@ namespace MindMap.Pages
             AttachSignOutEventListener();
         }
 
+        public LoginPageViewModel ViewModel
+        {
+            get
+            {
+                return this.DataContext as LoginPageViewModel;
+            }
+            set
+            {
+                this.DataContext = value;
+            }
+        }
+
         private async void AttachSignOutEventListener()
         {
             string parentElement = "fromApp";
@@ -130,17 +142,5 @@ namespace MindMap.Pages
         }
 
         #endregion
-
-        public LoginPageViewModel ViewModel
-        {
-            get
-            {
-                return this.DataContext as LoginPageViewModel;
-            }
-            set
-            {
-                this.DataContext = value;
-            }
-        }
     }
 }
