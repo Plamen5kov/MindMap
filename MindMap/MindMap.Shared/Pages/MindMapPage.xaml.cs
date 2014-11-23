@@ -44,7 +44,6 @@ namespace MindMap.Pages
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
             this.ViewModel =  new MindMapViewModel();
-            this.ViewModel.CreateDatabase(DbName);
         }
 
         public MindMapViewModel ViewModel
@@ -128,9 +127,8 @@ namespace MindMap.Pages
             var passedParameter = e.Parameter;
             if (passedParameter == null)
             {
-                //this.ViewModel.CreateDatabase(DbName);
-
                 // TODO: after there is a root disable the creation of new ones .. disable event
+                this.ViewModel.CreateDatabase(DbName);
             }
             else
             {
@@ -153,12 +151,11 @@ namespace MindMap.Pages
             var currentSelectedObject = e.OriginalSource;
             if ((currentSelectedObject as Grid) != null)
             {
-                //TODO: remove this line later and remove it with propper logic
                 this.ViewModel.NodesList.Add(new Node() { Title = "random title", Content = "random content" });
             }
             if ((currentSelectedObject as Rectangle) != null)
             {
-                this.Frame.Navigate(typeof(MindMapPage));
+                this.Frame.Navigate(typeof(MindMapPage), "notMain");
             }
         }
 
