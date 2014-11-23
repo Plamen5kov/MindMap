@@ -167,8 +167,9 @@ namespace MindMap.Pages
 
         private void Rectangle_Holding(object sender, HoldingRoutedEventArgs e)
         {
-            // change view to details with new instance
-            this.Frame.Navigate(typeof(NodeDetailsPage));
+            var selectedNodeId = ((e.OriginalSource as Rectangle).DataContext as Node).Id;
+
+            this.Frame.Navigate(typeof(NodeDetailsPage), selectedNodeId);
         }
     }
 }

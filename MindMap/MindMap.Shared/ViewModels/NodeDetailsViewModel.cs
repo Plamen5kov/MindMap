@@ -34,13 +34,20 @@ namespace MindMap.ViewModels
         private Windows.Media.Capture.MediaCapture takePhotoManager;
         private Node node;
 
+        public NodeDetailsViewModel()
+        {
+            this.Node = new Node();
+        }
+
+        public event EventHandler SaveDetailsForNodeEvent;
+
         public Node Node { get; set; }
 
         public CaptureElement PhotoPreview { get; set; }
 
         public string SelectedPicturePath { get; set; }
 
-        public event EventHandler SaveDetailsForNodeEvent;
+        public int CurrentNodeId { get; set; }
 
         public ICommand Save
         {
@@ -115,8 +122,8 @@ namespace MindMap.ViewModels
 
         private async void SaveNode()
         {
-            // TODO: save properties to sqlite
-            await SQLiteCrud.Instance.Add(DbName, this.Node);
+            // update passed element
+            await SQLiteCrud.Instance.UpdateArticleTitleAsync(DbName, this.CurrentNodeId, this.Node.Title, this.Node.Content);
 
             if (this.SaveDetailsForNodeEvent != null)
             {

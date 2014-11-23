@@ -69,6 +69,27 @@ namespace MindMap.Helpers
             return result;
         }
 
+        public async Task UpdateArticleTitleAsync(string dbName, int nodeId, string newTitle, string newContent)
+        {
+
+            SQLiteAsyncConnection conn = new SQLiteAsyncConnection(dbName);
+
+            // Retrieve Article
+            var node = await conn.Table<Node>()
+                .Where(x => x.Id == nodeId)
+                .FirstOrDefaultAsync();
+
+            if (node != null)
+            {
+                // modify node
+                node.Title = (newTitle == null) ? node.Title : newTitle;
+                node.Content = (newContent == null) ? node.Content : newContent;
+
+                // Update record
+                await conn.UpdateAsync(node);
+            }
+        }
+
         public async Task DropTableAsync(string dbName)
         {
             SQLiteAsyncConnection conn = new SQLiteAsyncConnection(dbName);

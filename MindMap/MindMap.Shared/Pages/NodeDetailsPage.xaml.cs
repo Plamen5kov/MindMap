@@ -122,6 +122,7 @@ namespace MindMap.Pages
         /// handlers that cannot cancel the navigation request.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            this.ViewModel.CurrentNodeId = (int)e.Parameter;
             this.ViewModel.InitializePicture(this.PhotoPreview);
             this.navigationHelper.OnNavigatedTo(e);
         }
