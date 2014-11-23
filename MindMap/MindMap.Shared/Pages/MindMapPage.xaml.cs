@@ -126,7 +126,7 @@ namespace MindMap.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var passedParameter = e.Parameter;
-            if (passedParameter == null)
+            if ((int)passedParameter == 0)
             {
                 // TODO: after there is a root disable the creation of new ones .. disable event
                 isParent = true;
@@ -135,6 +135,7 @@ namespace MindMap.Pages
             else
             {
                 isParent = false;
+                this.ViewModel.ParentId = (int)passedParameter;
                 // TODO: make request for  node with passed parent
                 // and visualize title on display NodesViewModel contains only title
             }
@@ -154,11 +155,20 @@ namespace MindMap.Pages
             var currentSelectedObject = e.OriginalSource;
             if ((currentSelectedObject as Grid) != null && !isParent)
             {
-                this.ViewModel.NodesList.Add(new Node() { Title = "random title", Content = "random content" });
+                this.ViewModel.AddNode();
             }
             if ((currentSelectedObject as Rectangle) != null)
             {
-                this.Frame.Navigate(typeof(MindMapPage), "notMain");
+                int selectedNodeId;
+                if(this.ViewModel.SelectedNode != null)
+                {
+                    selectedNodeId = this.ViewModel.SelectedNode.Id;
+                }
+                else
+                {
+                    selectedNodeId = 1;
+                }
+                this.Frame.Navigate(typeof(MindMapPage), selectedNodeId);
             }
         }
 

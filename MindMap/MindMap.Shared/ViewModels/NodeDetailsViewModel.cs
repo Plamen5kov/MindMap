@@ -29,18 +29,18 @@ namespace MindMap.ViewModels
 {
     public class NodeDetailsViewModel : ViewModelBase
     {
+        private const string DbName = "Nodes.db";
         private ICommand commandSave;
         private Windows.Media.Capture.MediaCapture takePhotoManager;
+        private Node node;
 
-        public string Title { get; set; }
-
-        public string Content { get; set; }
+        public Node Node { get; set; }
 
         public CaptureElement PhotoPreview { get; set; }
 
-        public event EventHandler SaveDetailsForNodeEvent;
+        public string SelectedPicturePath { get; set; }
 
-        //need helper class for database
+        public event EventHandler SaveDetailsForNodeEvent;
 
         public ICommand Save
         {
@@ -89,7 +89,7 @@ namespace MindMap.ViewModels
             }
 #elif WINDOWS_PHONE_APP
             // capture pic
-            takePhotoManager = new Windows.Media.Capture.MediaCapture();
+            this.takePhotoManager = new Windows.Media.Capture.MediaCapture();
             await takePhotoManager.InitializeAsync();
 
             photoPreview.Source = takePhotoManager;
@@ -113,9 +113,10 @@ namespace MindMap.ViewModels
         }
 #endif
 
-        private void SaveNode()
+        private async void SaveNode()
         {
             // TODO: save properties to sqlite
+            await SQLiteCrud.Instance.Add(DbName, this.Node);
 
             if (this.SaveDetailsForNodeEvent != null)
             {

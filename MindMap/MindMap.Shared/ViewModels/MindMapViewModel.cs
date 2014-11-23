@@ -20,6 +20,8 @@ namespace MindMap.ViewModels
             this.db = SQLiteCrud.Instance;
         }
 
+        public int ParentId { get; set; }
+
         public ICollection<Node> NodesList
         {
             get
@@ -41,6 +43,16 @@ namespace MindMap.ViewModels
             }
         }
 
+        public Node SelectedNode { get; set; }
+
+        public async void AddNode()
+        {
+            var nodeToAdd = new Node() { Title = "random title", Content = "random content", ParentId = this.ParentId };
+            var parId = this.ParentId;
+            await SQLiteCrud.Instance.Add(DbName, nodeToAdd);
+            this.NodesList.Add(nodeToAdd);
+        }
+
         public async void CreateDatabase(string DbName)
         {
             // Create Db if not exist
@@ -49,7 +61,7 @@ namespace MindMap.ViewModels
             {
                 await this.db.CreateDatabaseAsync(DbName);
                 //create root
-                var root = new Node() { Title = "root" };
+                var root = new Node() { Title = "root", ParentId = 0 };
                 await db.Add(DbName, root);
             }
 

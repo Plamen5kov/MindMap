@@ -56,5 +56,20 @@ namespace MindMap.Helpers
             SQLiteAsyncConnection conn = new SQLiteAsyncConnection(dbName);
             await conn.InsertAsync(node);
         }
+
+        public async Task<ICollection<Node>> FindNodesForParent(string dbName, int parentId)
+        {
+            SQLiteAsyncConnection conn = new SQLiteAsyncConnection(dbName);
+            var query = conn.Table<Node>().Where(n => n.ParentId == parentId);
+            var result = await query.ToListAsync();
+
+            return result;
+        }
+
+        public async Task DropTableAsync(string dbName)
+        {
+            SQLiteAsyncConnection conn = new SQLiteAsyncConnection(dbName);
+            await conn.DropTableAsync<Node>();
+        }
     }
 }

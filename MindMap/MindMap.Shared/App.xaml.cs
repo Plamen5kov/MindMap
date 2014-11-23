@@ -31,7 +31,7 @@ namespace MindMap
 #if WINDOWS_PHONE_APP
         private TransitionCollection transitions;
 #endif
-        private const object parentOfRoot = null;
+        private const int parentOfRoot = 0;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code

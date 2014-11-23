@@ -40,7 +40,8 @@
         <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
             <ListView Margin="10" 
                       Name="lvDataBinding" 
-                      ItemsSource="{Binding NodesList}">
+                      ItemsSource="{Binding NodesList}"
+                      SelectedItem="{Binding SelectedNode}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Canvas Name="canvasContext" Height="110">
