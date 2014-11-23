@@ -11,19 +11,17 @@ namespace MindMap.Helpers
 {
     public static class NodeManager
     {
-        public static UIElement CreateNode()
+        public static UIElement CreateNode(string title)
         {
 
             var grid_container = CreateGrid();
             var cnvs_container = CreateCanvas();
             var stackPanel_innerContainer = new StackPanel();
             stackPanel_innerContainer.Margin = new Thickness(20, 30, 0, 0);
-            var tb_title = CreateTextBlock("node title", 30, 25, Windows.UI.Text.FontWeights.ExtraBold);
-            var tb_text = CreateTextBlock("content of the root node that's going to show on the screen", 120, 20, Windows.UI.Text.FontWeights.Light);
+            var tb_title = CreateTextBlock(title, 30, 25, Windows.UI.Text.FontWeights.ExtraBold);
             var rect_node = CreateEllipse();
 
             stackPanel_innerContainer.Children.Add(tb_title);
-            stackPanel_innerContainer.Children.Add(tb_text);
             cnvs_container.Children.Add(stackPanel_innerContainer);
             cnvs_container.Children.Add(rect_node);
             grid_container.Children.Add(cnvs_container);

@@ -1,5 +1,6 @@
 ﻿using MindMap.Common;
 using MindMap.Helpers;
+using MindMap.Models;
 using MindMap.ViewModels;
 using Parse;
 using System;
@@ -33,6 +34,7 @@ namespace MindMap.Pages
     {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
+        private const string DbName = "Nodes.db";
 
         public MindMapPage()
         {
@@ -42,6 +44,7 @@ namespace MindMap.Pages
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
             this.ViewModel =  new MindMapViewModel();
+            this.ViewModel.CreateDatabase(DbName);
         }
 
         public MindMapViewModel ViewModel
@@ -125,7 +128,7 @@ namespace MindMap.Pages
             var passedParameter = e.Parameter;
             if (passedParameter == null)
             {
-                this.ViewModel.NodesList.Add(new NodeViewModel() { Title = "random title", Content = "random content" });
+                //this.ViewModel.CreateDatabase(DbName);
 
                 // TODO: after there is a root disable the creation of new ones .. disable event
             }
@@ -137,8 +140,6 @@ namespace MindMap.Pages
 
             this.navigationHelper.OnNavigatedTo(e);
         }
-
-
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
@@ -152,7 +153,7 @@ namespace MindMap.Pages
             var currentSelectedObject = e.OriginalSource;
             if ((currentSelectedObject as Grid) != null)
             {
-                this.ViewModel.NodesList.Add(new NodeViewModel() { Title = "random title", Content = "random content" });
+                this.ViewModel.NodesList.Add(new Node() { Title = "random title", Content = "random content" });
             }
             if ((currentSelectedObject as Rectangle) != null)
             {

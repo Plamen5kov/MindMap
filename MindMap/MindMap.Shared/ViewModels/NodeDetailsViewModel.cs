@@ -23,6 +23,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 using Windows.Media.Capture;
+using MindMap.Models;
 
 namespace MindMap.ViewModels
 {
