@@ -1,18 +1,13 @@
 ﻿using MindMap.Common;
-using MindMap.Helpers;
-using MindMap.Models;
 using MindMap.ViewModels;
-using Parse;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
-using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -21,7 +16,6 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Windows.UI.Xaml.Shapes;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -30,28 +24,36 @@ namespace MindMap.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MindMapPage : Page
+    public sealed partial class NodeDetailsPage : Page
     {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
-        private const string DbName = "Nodes.db";
 
-        public MindMapPage()
+        public NodeDetailsPage()
         {
             this.InitializeComponent();
 
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
-            this.ViewModel =  new MindMapViewModel();
-            this.ViewModel.CreateDatabase(DbName);
+
+            this.ViewModel = new NodeDetailsViewModel();
+            AttachOnSaveClick();
         }
 
-        public MindMapViewModel ViewModel
+        private void AttachOnSaveClick()
+        {
+            this.ViewModel.SaveDetailsForNodeEvent += (snd, args) =>
+                {
+                    this.Frame.GoBack();
+                };
+        }
+
+        public NodeDetailsViewModel ViewModel
         {
             get
             {
-                return this.DataContext as MindMapViewModel;
+                return this.DataContext as NodeDetailsViewModel;
             }
             set
             {
@@ -103,11 +105,6 @@ namespace MindMap.Pages
         {
         }
 
-        public void OnSignOutCompleated(object sender, EventArgs args)
-        {
-            this.Frame.Navigate(typeof(LoginPage));
-        }
-
         #region NavigationHelper registration
 
         /// <summary>
@@ -125,19 +122,6 @@ namespace MindMap.Pages
         /// handlers that cannot cancel the navigation request.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var passedParameter = e.Parameter;
-            if (passedParameter == null)
-            {
-                //this.ViewModel.CreateDatabase(DbName);
-
-                // TODO: after there is a root disable the creation of new ones .. disable event
-            }
-            else
-            {
-                // TODO: make request for  node with passed parent
-                // and visualize title on display NodesViewModel contains only title
-            }
-
             this.navigationHelper.OnNavigatedTo(e);
         }
 
@@ -148,24 +132,9 @@ namespace MindMap.Pages
 
         #endregion
 
-        private void OnPageTap(object sender, TappedRoutedEventArgs e)
+        private void PhotoPreview_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            var currentSelectedObject = e.OriginalSource;
-            if ((currentSelectedObject as Grid) != null)
-            {
-                //TODO: remove this line later and remove it with propper logic
-                this.ViewModel.NodesList.Add(new Node() { Title = "random title", Content = "random content" });
-            }
-            if ((currentSelectedObject as Rectangle) != null)
-            {
-                this.Frame.Navigate(typeof(MindMapPage));
-            }
-        }
-
-        private void Rectangle_Holding(object sender, HoldingRoutedEventArgs e)
-        {
-            // change view to details with new instance
-            this.Frame.Navigate(typeof(NodeDetailsPage));
+            //take picture
         }
     }
 }

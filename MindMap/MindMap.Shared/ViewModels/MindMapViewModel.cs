@@ -44,10 +44,10 @@ namespace MindMap.ViewModels
         public async void CreateDatabase(string DbName)
         {
             // Create Db if not exist
-            bool dbExists = await db.CheckDbAsync(DbName);
+            bool dbExists = await this.db.CheckDbAsync(DbName);
             if (!dbExists)
             {
-                await db.CreateDatabaseAsync(DbName);
+                await this.db.CreateDatabaseAsync(DbName);
                 //create root
                 var root = new Node() { Title = "root" };
                 await db.Add(DbName, root);
