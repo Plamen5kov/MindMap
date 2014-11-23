@@ -35,6 +35,7 @@ namespace MindMap.Pages
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
         private const string DbName = "Nodes.db";
+        private bool isParent = false;
 
         public MindMapPage()
         {
@@ -128,10 +129,12 @@ namespace MindMap.Pages
             if (passedParameter == null)
             {
                 // TODO: after there is a root disable the creation of new ones .. disable event
+                isParent = true;
                 this.ViewModel.CreateDatabase(DbName);
             }
             else
             {
+                isParent = false;
                 // TODO: make request for  node with passed parent
                 // and visualize title on display NodesViewModel contains only title
             }
@@ -149,7 +152,7 @@ namespace MindMap.Pages
         private void OnPageTap(object sender, TappedRoutedEventArgs e)
         {
             var currentSelectedObject = e.OriginalSource;
-            if ((currentSelectedObject as Grid) != null)
+            if ((currentSelectedObject as Grid) != null && !isParent)
             {
                 this.ViewModel.NodesList.Add(new Node() { Title = "random title", Content = "random content" });
             }
