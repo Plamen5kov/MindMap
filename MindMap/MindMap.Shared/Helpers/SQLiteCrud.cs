@@ -50,11 +50,14 @@ namespace MindMap.Helpers
             await conn.CreateTableAsync<Node>();
         }
 
-        public async Task Add(string dbName, Node node)
+        public async Task<int> Add(string dbName, Node node)
         {
             // Add rows to the Article Table
             SQLiteAsyncConnection conn = new SQLiteAsyncConnection(dbName);
             await conn.InsertAsync(node);
+            int id = node.Id;
+
+            return id;
         }
 
         public async Task<ICollection<Node>> FindNodesForParent(string dbName, int parentId)

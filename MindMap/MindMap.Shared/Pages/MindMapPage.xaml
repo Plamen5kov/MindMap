@@ -41,7 +41,7 @@
             <ListView Margin="10" 
                       Name="lvDataBinding" 
                       ItemsSource="{Binding NodesList}"
-                      SelectedItem="{Binding SelectedNode}">
+                      SelectedItem="{Binding SelectedNode, Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Canvas Name="canvasContext" Height="110">

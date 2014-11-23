@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using MindMap.Helpers.Extensions;
 using MindMap.Helpers;
+using System.Threading.Tasks;
 
 namespace MindMap.ViewModels
 {
@@ -49,11 +50,16 @@ namespace MindMap.ViewModels
         {
             var nodeToAdd = new Node() { Title = "random title", Content = "random content", ParentId = this.ParentId };
             var parId = this.ParentId;
-            await SQLiteCrud.Instance.Add(DbName, nodeToAdd);
+            int id = await SQLiteCrud.Instance.Add(DbName, nodeToAdd);
             this.NodesList.Add(nodeToAdd);
         }
 
-        public async void CreateDatabase(string DbName)
+        public async Task FindNodesWithCurrentParent()
+        {
+            this.NodesList = await SQLiteCrud.Instance.FindNodesForParent(DbName, this.ParentId);
+        }
+
+        public async Task CreateDatabase(string DbName)
         {
             // Create Db if not exist
             bool dbExists = await this.db.CheckDbAsync(DbName);
@@ -62,7 +68,7 @@ namespace MindMap.ViewModels
                 await this.db.CreateDatabaseAsync(DbName);
                 //create root
                 var root = new Node() { Title = "root", ParentId = 0 };
-                await db.Add(DbName, root);
+                await SQLiteCrud.Instance.Add(DbName, root);
             }
 
             // get root
