@@ -55,24 +55,27 @@
                 
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Canvas Name="canvasContext" Height="200">
+                        <Canvas Name="canvasContext" Height="200"
+                                Margin="0 0 0 10">
                             <StackPanel
-                                Margin="0, 30, 0, 0">
+                                HorizontalAlignment="Center"
+                                Margin="30, 30, 0, 0">
                                 <TextBlock Margin="20"
                                             Text="{Binding Title, Mode=TwoWay}" 
                                             FontSize="27"
                                            HorizontalAlignment="Center"/>
                                 <TextBlock Text="{Binding Content, Mode=TwoWay}" 
                                             FontSize="27"
+                                           Width="320"
                                            HorizontalAlignment="Center"/>
                             </StackPanel>
-                            <Ellipse VerticalAlignment="Stretch"
+                            <Ellipse    VerticalAlignment="Stretch"
                                         HorizontalAlignment="Stretch" 
                                         Height="200"
-                                        Width="200"
+                                        Width="380"
                                         Fill="Aquamarine"
                                         Opacity="0.5"
-                                        Holding="Rectangle_Holding">
+                                        Holding="EllipseHolding">
                             </Ellipse>
                         </Canvas>
                     </DataTemplate>

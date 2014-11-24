@@ -189,7 +189,7 @@ namespace MindMap.Pages
             }
         }
 
-        private void Rectangle_Holding(object sender, HoldingRoutedEventArgs e)
+        private void EllipseHolding(object sender, HoldingRoutedEventArgs e)
         {
             var selectedNodeId = ((e.OriginalSource as Ellipse).DataContext as Node).Id;
 
@@ -201,7 +201,11 @@ namespace MindMap.Pages
         {
             try
             {
-                this.Frame.GoBack();
+                if (this.ViewModel.ParentId != 0)
+                {
+                    this.Frame.GoBack();
+                }
+                ToasterManager.CreateToastWithText("we cant go back anymore ... ");
             }
             catch (Exception ex)
             {
