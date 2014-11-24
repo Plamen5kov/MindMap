@@ -48,8 +48,11 @@
                         TargetName="lv_Nodes" />
                 </Storyboard>
             </Grid.Resources>
-            <ListView Margin="10" 
+            <ListView  Margin="0 0 0 10"
                       Name="lv_Nodes" 
+                      Width="400"
+                      SelectionMode="None"
+                      HorizontalAlignment="Center"
                       ItemsSource="{Binding NodesList}"
                       SelectedItem="{Binding SelectedNode, Mode=TwoWay}">
                 

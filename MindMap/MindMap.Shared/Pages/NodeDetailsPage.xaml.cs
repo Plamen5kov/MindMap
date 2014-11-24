@@ -135,8 +135,10 @@ namespace MindMap.Pages
         #endregion
         private void PhotoPreview_Tapped(object sender, TappedRoutedEventArgs e)
         {
+#if WINDOWS_PHONE_APP
             //take picture
+            this.ViewModel.TakePicture();
+#endif
         }
-
     }
 }

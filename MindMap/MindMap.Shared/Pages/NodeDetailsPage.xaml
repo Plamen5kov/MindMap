@@ -8,6 +8,14 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="40" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="35" />
+        </Style>
+    </Page.Resources>
     <Grid x:Name="LayoutRoot">
 
         <Grid.ChildrenTransitions>
@@ -74,9 +82,11 @@
                        Text="{Binding SelectedPicturePath}"/>
             <Button Content="_pic" 
                     Grid.Row="6"
-                    Grid.Column="1"/>
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"/>
             
-            <Button Content="Save"
+            <Button Content="_save"
                     Command="{Binding Save}" 
                     Grid.Row="7"
                     FontStretch="Expanded"
