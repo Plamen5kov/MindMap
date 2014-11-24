@@ -1,4 +1,5 @@
-﻿using MindMap.Pages;
+﻿using BackgroundSoundManager;
+using MindMap.Pages;
 using MindMap.ViewModels;
 using Parse;
 using System;
@@ -6,8 +7,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -41,6 +44,10 @@ namespace MindMap
         {
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
+            
+#if WINDOWS_PHONE_APP
+            this.HandleBackgroundTaskRequestAndRegister();
+#endif
 
             ParseClient.Initialize("2063MyRUfXR6BAcyaLg8YcCquRwQyFCupFflSMdf", "DU8OBwFxfYkmLAOF0MNZP79ctLT6COC090LbJ3yp");
         }
@@ -145,5 +152,67 @@ namespace MindMap
 
             deferral.Complete();
         }
+
+#if WINDOWS_PHONE_APP
+        private async void HandleBackgroundTaskRequestAndRegister()
+        {
+            var status = await this.RequestBackgroundAccess();
+            if((status == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity) ||
+                (status == BackgroundAccessStatus.Unspecified) ||
+                (status == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity))
+            {
+                this.RegisterBackgroundTasks();
+            }
+        }
+
+        private async Task<BackgroundAccessStatus> RequestBackgroundAccess()
+        {
+            var result = await BackgroundExecutionManager.RequestAccessAsync();
+
+            if (result == BackgroundAccessStatus.Denied)
+            {
+                //inform user
+            }
+            return result;
+        }
+
+        private void RegisterBackgroundTasks()
+        {
+
+            var taskRegistered = false;
+            var exampleTaskName = "ExampleBackgroundTask";
+
+            foreach (var task in BackgroundTaskRegistration.AllTasks)
+            {
+                if (task.Value.Name == exampleTaskName)
+                {
+                    taskRegistered = true;
+                    break;
+                }
+            }
+
+            if (taskRegistered == false)
+            {
+                var builder = new BackgroundTaskBuilder();
+                var trigger = new SystemTrigger(SystemTriggerType.InternetAvailable, false);
+                //var condition = new SystemCondition(SystemConditionType.InternetNotAvailable);
+
+                builder.Name = exampleTaskName;
+                builder.TaskEntryPoint = typeof(BackgroundSound).FullName;
+                builder.SetTrigger(trigger);
+                //builder.AddCondition(condition);
+
+                var taskRegistration = builder.Register();
+
+                taskRegistration.Completed += TaskRegistrationCompleated;
+            }
+
+        }
+        private void TaskRegistrationCompleated(BackgroundTaskRegistration sender, BackgroundTaskCompletedEventArgs args)
+        {
+            //
+            var a = 5;
+        }
+#endif
     }
 }

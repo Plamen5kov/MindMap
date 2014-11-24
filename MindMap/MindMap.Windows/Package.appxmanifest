@@ -15,7 +15,9 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="MindMap.Windows.App">
-      <m2:VisualElements DisplayName="MindMap.Windows" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png" Description="MindMap.Windows" ForegroundText="light" BackgroundColor="#464646">
+      <m2:VisualElements DisplayName="MindMap.Windows" Square150x150Logo="Assets\SmallLogo.png" Square30x30Logo="Assets\SmallLogo.png" Description="MindMap.Windows" ForegroundText="light" BackgroundColor="#464646" ToastCapable="true">
+        <m2:DefaultTile ShortName="asd" DefaultSize="square150x150Logo">
+        </m2:DefaultTile>
         <m2:SplashScreen Image="Assets\SplashScreen.png" />
         <m2:InitialRotationPreference>
           <m2:Rotation Preference="portrait" />

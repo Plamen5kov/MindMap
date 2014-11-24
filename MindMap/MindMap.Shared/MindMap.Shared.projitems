@@ -25,6 +25,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\SQLite.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\SQLiteAsync.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\SQLiteCrud.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ToasterManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Node.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>

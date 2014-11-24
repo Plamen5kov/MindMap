@@ -27,6 +27,8 @@ namespace MindMap.UserControls
         }
 
         public event EventHandler SignOutEvent;
+        public event EventHandler GoBackEvent;
+
 
         public string TitleText
         {
@@ -36,6 +38,14 @@ namespace MindMap.UserControls
 
         public static readonly DependencyProperty TitleTextProperty =
             DependencyProperty.Register("TitleText", typeof(string), typeof(HeaderView), new PropertyMetadata(null));
+
+        private void OnGoBackClicked(object sender, RoutedEventArgs e)
+        {
+            if (this.GoBackEvent != null)
+            {
+                this.GoBackEvent(this, null);
+            }
+        }
 
         private void OnSignOutClicked(object sender, RoutedEventArgs e)
         {

@@ -27,7 +27,13 @@
         <Button Grid.Row="1"
                 Grid.Column="1"
                 Content="_signOut"
+                HorizontalAlignment="Center"
                 Click="OnSignOutClicked"/>
+        <Button Grid.Row="1"
+                Grid.Column="0"
+                Content="_goBack"
+                HorizontalAlignment="Center"
+                Click="OnGoBackClicked"/>
     </Grid>
     
 </UserControl>

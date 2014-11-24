@@ -10,10 +10,12 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.Data.Xml.Dom;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
 using Windows.UI;
+using Windows.UI.Notifications;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -180,7 +182,7 @@ namespace MindMap.Pages
             {
                 this.ViewModel.AddNode();
             }
-            if ((currentSelectedObject as Rectangle) != null)
+            if ((currentSelectedObject as Ellipse) != null)
             {
                 int selectedNodeId = this.ViewModel.SelectedNode.Id;
                 this.Frame.Navigate(typeof(MindMapPage), selectedNodeId);
@@ -189,10 +191,22 @@ namespace MindMap.Pages
 
         private void Rectangle_Holding(object sender, HoldingRoutedEventArgs e)
         {
-            var selectedNodeId = ((e.OriginalSource as Rectangle).DataContext as Node).Id;
+            var selectedNodeId = ((e.OriginalSource as Ellipse).DataContext as Node).Id;
 
             this.sb_grid.Begin();
             this.Frame.Navigate(typeof(NodeDetailsPage), selectedNodeId);
+        }
+
+        private void OnGoBackCompleated(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Frame.GoBack();
+            }
+            catch (Exception ex)
+            {
+                ToasterManager.CreateToastWithText("we cant go back anymore ... ");
+            }
         }
     }
 }
