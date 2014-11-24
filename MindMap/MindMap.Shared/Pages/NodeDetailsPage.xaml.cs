@@ -38,12 +38,17 @@ namespace MindMap.Pages
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
             this.ViewModel = new NodeDetailsViewModel();
-            AttachOnSaveClick();
+            AttachOnButtonClick();
+            
         }
 
-        private void AttachOnSaveClick()
+        private void AttachOnButtonClick()
         {
             this.ViewModel.SaveDetailsForNodeEvent += (snd, args) =>
+                {
+                    this.Frame.GoBack();
+                };
+            this.ViewModel.DeleteNodeEvent += (snd, args) =>
                 {
                     this.Frame.GoBack();
                 };

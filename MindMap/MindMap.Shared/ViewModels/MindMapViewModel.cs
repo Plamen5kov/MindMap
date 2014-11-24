@@ -19,6 +19,7 @@ namespace MindMap.ViewModels
         public MindMapViewModel()
         {
             this.db = SQLiteCrud.Instance;
+            this.SelectedNode = new Node();
         }
 
         public int ParentId { get; set; }
@@ -68,7 +69,8 @@ namespace MindMap.ViewModels
                 await this.db.CreateDatabaseAsync(DbName);
                 //create root
                 var root = new Node() { Title = "root", ParentId = 0 };
-                await SQLiteCrud.Instance.Add(DbName, root);
+                var id = await SQLiteCrud.Instance.Add(DbName, root);
+                this.SelectedNode.Id = id;
             }
 
             // get root

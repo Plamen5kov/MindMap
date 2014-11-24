@@ -141,6 +141,7 @@ namespace MindMap.Pages
         private async Task LoadCurrentPageNodes(NavigationEventArgs e)
         {
             var passedParameter = e.Parameter;
+
             var count = this.ViewModel.NodesList.Count;
             if ((int)passedParameter == 0)
             {

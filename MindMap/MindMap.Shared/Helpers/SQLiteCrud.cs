@@ -60,6 +60,23 @@ namespace MindMap.Helpers
             return id;
         }
 
+        public async Task DeleteAsync(string dbName, int nodeId)
+        {
+            SQLiteAsyncConnection conn = new SQLiteAsyncConnection(dbName);
+
+            // Retrieve Article
+            var node = await conn.Table<Node>()
+                .Where(x => x.Id == nodeId)
+                .FirstOrDefaultAsync();
+
+            if (node != null)
+            {
+
+                // Update record
+                await conn.DeleteAsync(node);
+            }
+        }
+
         public async Task<ICollection<Node>> FindNodesForParent(string dbName, int parentId)
         {
             SQLiteAsyncConnection conn = new SQLiteAsyncConnection(dbName);

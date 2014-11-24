@@ -31,6 +31,7 @@ namespace MindMap.ViewModels
     {
         private const string DbName = "Nodes.db";
         private ICommand commandSave;
+        private ICommand commandDelete;
         private Windows.Media.Capture.MediaCapture takePhotoManager;
         private Node node;
 
@@ -40,6 +41,7 @@ namespace MindMap.ViewModels
         }
 
         public event EventHandler SaveDetailsForNodeEvent;
+        public event EventHandler DeleteNodeEvent;
 
         public Node Node { get; set; }
 
@@ -58,6 +60,28 @@ namespace MindMap.ViewModels
                     this.commandSave = new RelayCommand(this.SaveNode);
                 }
                 return this.commandSave;
+            }
+        }
+
+        public ICommand Delete
+        {
+            get
+            {
+                if (this.commandDelete == null)
+                {
+                    this.commandDelete = new RelayCommand(this.DeleteNode);
+                }
+                return commandDelete;
+            }
+        }
+
+        private async void DeleteNode()
+        {
+            await SQLiteCrud.Instance.DeleteAsync(DbName, this.CurrentNodeId);
+
+            if (this.DeleteNodeEvent != null)
+            {
+                this.DeleteNodeEvent(this, null);
             }
         }
 

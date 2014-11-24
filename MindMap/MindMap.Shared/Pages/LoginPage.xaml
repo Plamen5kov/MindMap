@@ -44,14 +44,14 @@
             <TextBlock Text="Username"
                        Grid.Row="0"
                        Grid.ColumnSpan="2"
-                       Style="{StaticResource LabelTextBlockStyle}"/>
+                       Style="{StaticResource TextBlockStyle}"/>
             <TextBox Grid.Row="1"
                      Grid.ColumnSpan="2"
                      Text="{Binding User.Username, Mode=TwoWay}"/>
             <TextBlock Text="Username" 
                        Grid.Row="2"
                        Grid.ColumnSpan="2"
-                       Style="{StaticResource LabelTextBlockStyle}"/>
+                       Style="{StaticResource TextBlockStyle}"/>
             <PasswordBox Grid.Row="3"
                          Grid.ColumnSpan="2"
                          Password ="{Binding User.Password, Mode=TwoWay}"/>
@@ -74,7 +74,7 @@
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Text="{Binding NotifyMessage, Mode=TwoWay}"
-                       Style="{StaticResource LabelTextBlockStyle}"/>
+                       Style="{StaticResource TextBlockStyle}"/>
         </Grid>
     </Grid>
 </Page>

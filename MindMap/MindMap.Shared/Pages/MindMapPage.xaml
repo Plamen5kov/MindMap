@@ -51,10 +51,9 @@
             <ListView  Margin="0 0 0 10"
                       Name="lv_Nodes" 
                       Width="400"
-                      SelectionMode="None"
                       HorizontalAlignment="Center"
                       ItemsSource="{Binding NodesList}"
-                      SelectedItem="{Binding SelectedNode, Mode=TwoWay}">
+                      SelectedItem="{Binding SelectedNode, Mode=TwoWay, Converter={StaticResource dummyConverter}}">
                 
                 <ListView.ItemTemplate>
                     <DataTemplate>

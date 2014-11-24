@@ -5,8 +5,11 @@
     xmlns:local="using:MindMap">
     <Application.Resources>
         <x:String x:Key="AppName">mind_map_5k</x:String>
-        <Style x:Key="LabelTextBlockStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="30"></Setter>
+        <Style TargetType="TextBlock" x:Key="TextBlockStyle">
+            <Setter Property="FontSize" Value="40"></Setter>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonsStyle">
+            <Setter Property="FontSize" Value="35" />
         </Style>
     </Application.Resources>
 </Application>

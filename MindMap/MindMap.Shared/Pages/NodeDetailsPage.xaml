@@ -9,13 +9,10 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="FontSize" Value="40" />
-        </Style>
-        <Style TargetType="Button">
-            <Setter Property="FontSize" Value="35" />
-        </Style>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}"/>
+        <Style TargetType="Button" BasedOn="{StaticResource ButtonsStyle}" />
     </Page.Resources>
+    
     <Grid x:Name="LayoutRoot">
 
         <Grid.ChildrenTransitions>
@@ -29,13 +26,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Title Panel -->
         <StackPanel Grid.Row="0" Margin="19,0,0,0">
-            <TextBlock Text="MY APPLICATION" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
-            <TextBlock Text="page title" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" />
+            <TextBlock Text="{StaticResource AppName}" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
+            <TextBlock Text="Details Page" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" />
         </StackPanel>
 
-        <!--TODO: Content should be placed within the following grid-->
         <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
             <Grid.RowDefinitions >
                 <RowDefinition Height="4*"/>
@@ -91,8 +86,14 @@
                     Grid.Row="7"
                     FontStretch="Expanded"
                     VerticalAlignment="Stretch"
-                    HorizontalAlignment="Stretch"
-                    Grid.ColumnSpan="2"/>
+                    HorizontalAlignment="Stretch"/>
+            <Button Content="_delete"
+                    Command="{Binding Delete}" 
+                    Grid.Row="7"
+                    Grid.Column="1"
+                    FontStretch="Expanded"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch"/>
         </Grid>
     </Grid>
 </Page>
