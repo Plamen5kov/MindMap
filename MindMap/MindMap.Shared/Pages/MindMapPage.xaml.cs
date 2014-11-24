@@ -191,6 +191,7 @@ namespace MindMap.Pages
         {
             var selectedNodeId = ((e.OriginalSource as Rectangle).DataContext as Node).Id;
 
+            this.sb_grid.Begin();
             this.Frame.Navigate(typeof(NodeDetailsPage), selectedNodeId);
         }
     }

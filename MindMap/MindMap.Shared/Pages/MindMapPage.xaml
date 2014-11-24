@@ -16,6 +16,11 @@
     <Page.Resources>
         <dummyConverter:DummyConverter x:Key="dummyConverter" />
     </Page.Resources>
+    <Page.Transitions>
+        <TransitionCollection>
+            <PaneThemeTransition />
+        </TransitionCollection>
+    </Page.Transitions>
 
     <Grid x:Name="LayoutRoot" 
     Tapped="OnGridTap">
@@ -39,8 +44,14 @@
 
         <!--Content should be placed within the following grid-->
         <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
+            <Grid.Resources>
+                <Storyboard x:Name="sb_grid">
+                    <FadeOutThemeAnimation
+                        TargetName="lv_Nodes" />
+                </Storyboard>
+            </Grid.Resources>
             <ListView Margin="10" 
-                      Name="lvDataBinding" 
+                      Name="lv_Nodes" 
                       ItemsSource="{Binding NodesList}"
                       SelectedItem="{Binding SelectedNode, Mode=TwoWay}">
                 
