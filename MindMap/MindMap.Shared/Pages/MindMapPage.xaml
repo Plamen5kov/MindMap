@@ -18,7 +18,7 @@
     </Page.Resources>
 
     <Grid x:Name="LayoutRoot" 
-    Tapped="OnPageTap">
+    Tapped="OnGridTap">
 
         <Grid.ChildrenTransitions>
             <TransitionCollection>
@@ -30,6 +30,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        
 
         <!-- Title Panel -->
         <views:HeaderView Grid.Row="0" Margin="19,0,0,0"
@@ -42,6 +43,7 @@
                       Name="lvDataBinding" 
                       ItemsSource="{Binding NodesList}"
                       SelectedItem="{Binding SelectedNode, Mode=TwoWay}">
+                
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Canvas Name="canvasContext" Height="110">

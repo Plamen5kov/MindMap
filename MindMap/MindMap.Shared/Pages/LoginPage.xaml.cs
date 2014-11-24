@@ -60,9 +60,9 @@ namespace MindMap.Pages
 
         private async void AttachSignOutEventListener()
         {
-            int parentElement = 0;
             this.ViewModel.LoginSuccessfullEvent += (snd, args) =>
-            {// each time someone navigates to the MindMapPage he needs to send the parent element so we know what child elements to make request for
+            {
+                int parentElement = 0;
                 this.Frame.Navigate(typeof(MindMapPage), parentElement);
             };
         }

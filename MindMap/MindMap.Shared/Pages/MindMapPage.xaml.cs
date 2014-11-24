@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
@@ -40,12 +41,17 @@ namespace MindMap.Pages
         public MindMapPage()
         {
             this.InitializeComponent();
-
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
-            this.ViewModel =  new MindMapViewModel();
+            this.ViewModel = new MindMapViewModel();
+            //this.AttachGestures();
         }
+
+        //private void AttachGestures()
+        //{
+        //    this.LayoutRoot.
+        //}
 
         public MindMapViewModel ViewModel
         {
@@ -125,23 +131,38 @@ namespace MindMap.Pages
         /// handlers that cannot cancel the navigation request.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            this.navigationHelper.OnNavigatedTo(e);
+
+            LoadCurrentPageNodes(e);
+        }
+
+        private async Task LoadCurrentPageNodes(NavigationEventArgs e)
+        {
             var passedParameter = e.Parameter;
-            if ((int)passedParameter == 0 && this.ViewModel.NodesList.Count != 0)
+            var count = this.ViewModel.NodesList.Count;
+            if ((int)passedParameter == 0)
             {
-                // TODO: after there is a root disable the creation of new ones .. disable event
+                await CreateTableIfNeeded();
+            }
+
+            if ((int)passedParameter == 0)
+            {
                 isParent = true;
-                this.ViewModel.CreateDatabase(DbName);
             }
             else
             {
                 isParent = false;
-                this.ViewModel.ParentId = (int)passedParameter;
-                this.ViewModel.FindNodesWithCurrentParent();
-                // TODO: make request for  node with passed parent
-                // and visualize title on display NodesViewModel contains only title
             }
+            this.ViewModel.ParentId = (int)passedParameter;
+            this.ViewModel.FindNodesWithCurrentParent();
+        }
 
-            this.navigationHelper.OnNavigatedTo(e);
+        private async Task CreateTableIfNeeded()
+        {
+            if (! await SQLiteCrud.Instance.CheckDbAsync(DbName))
+            {
+                this.ViewModel.CreateDatabase(DbName);
+            }
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -151,7 +172,8 @@ namespace MindMap.Pages
 
         #endregion
 
-        private void OnPageTap(object sender, TappedRoutedEventArgs e)
+
+        private void OnGridTap(object sender, TappedRoutedEventArgs e)
         {
             var currentSelectedObject = e.OriginalSource;
             if ((currentSelectedObject as Grid) != null && !isParent)

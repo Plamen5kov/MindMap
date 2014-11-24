@@ -133,10 +133,10 @@ namespace MindMap.Pages
         }
 
         #endregion
-
         private void PhotoPreview_Tapped(object sender, TappedRoutedEventArgs e)
         {
             //take picture
         }
+
     }
 }
