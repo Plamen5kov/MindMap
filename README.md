@@ -1,2 +1,2 @@
 # MindMap
-Simple mind map application that can use audio video and pictures.
+Simple mind map application for windows phone that can use audio video and pictures.
